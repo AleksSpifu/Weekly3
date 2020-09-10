@@ -89,6 +89,9 @@ void guessingProcess() {
         else if (guess == correctNumber) {
             attempts++;
             std::cout << "That was it! In only " << attempts << " attempts, Congratulations!\n";
+            if (attempts < highscore[activeUser]) {
+                std::cout << "You beat your previous score by " << (highscore[activeUser] - attempts) << " attempts!\n";
+            }
             wonTheGame = true;
         }
     }
@@ -176,7 +179,6 @@ int main() {
         attempts = 0;
         guessingProcess();
         if (attempts < highscore[activeUser] || highscore[activeUser] == 0) {
-            std::cout << "You beat your previous score by " << (highscore[activeUser] - attempts) << " attempts!";
             highscore[activeUser] = attempts;
         }
         goAgainChoice = goAgainMenu();
