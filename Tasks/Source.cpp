@@ -1,19 +1,35 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include "myHeader.h"
 
-int guessMin = 1;
-int guessMax = 0;
-int correctNumber = 5;
-int guess;
-bool wonTheGame = false;
-int attempts = 0;
-std::string username[11];
-int highscore[11];
-int activeUser = 0;
-bool donePlaying = false;
-int goAgainChoice;
-
+int main() {
+    changeDifficulty();
+    while (donePlaying == false) {
+        if (goAgainChoice == 3) {
+            difficultySetting();
+        }
+        if (goAgainChoice == 2 || activeUser == 0) {
+            userSelection();
+            getUserName();
+        }
+        correctNumber = getRandomNumber(guessMin, guessMax);
+        system("cls");
+        std::cout << "--- Welcome to the great guessing game, " << username[activeUser] << "! ---\n";
+        std::cout << "Please enter a number between " << guessMin << " and " << guessMax << " PS: It's " << correctNumber << "\n";
+        getNumberFromUser();
+        wonTheGame = false;
+        attempts = 0;
+        guessingProcess();
+        if (attempts < highscore[activeUser] || highscore[activeUser] == 0) {
+            highscore[activeUser] = attempts;
+        }
+        goAgainChoice = goAgainMenu();
+        if (goAgainChoice == 4) {
+            donePlaying = true;
+        }
+    }
+}
 
 int getRandomNumber(int min, int max)
 {
@@ -160,30 +176,3 @@ void difficultySetting() {
 
 
 
-int main() {
-    changeDifficulty();
-    while (donePlaying == false) {
-        if (goAgainChoice == 3) {
-            difficultySetting();
-        }
-        if (goAgainChoice == 2 || activeUser == 0) {
-            userSelection();
-            getUserName();
-        }
-        correctNumber = getRandomNumber(guessMin, guessMax);
-        system("cls");
-        std::cout << "--- Welcome to the great guessing game, " << username[activeUser] << "! ---\n";
-        std::cout << "Please enter a number between " << guessMin << " and " << guessMax << " PS: It's " << correctNumber << "\n";
-        getNumberFromUser();
-        wonTheGame = false;
-        attempts = 0;
-        guessingProcess();
-        if (attempts < highscore[activeUser] || highscore[activeUser] == 0) {
-            highscore[activeUser] = attempts;
-        }
-        goAgainChoice = goAgainMenu();
-        if (goAgainChoice == 4) {
-            donePlaying = true;
-        }
-    }
-}
